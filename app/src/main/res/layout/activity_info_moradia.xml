@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InfoMoradiaActivity">
+
+    <TextView
+        android:id="@+id/tv_endereco_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/kozuka_bold"
+        android:text="Endereço"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/endereco_moradia_info"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/tv_border_black"
+        android:fontFamily="@font/kozuka_regular"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_endereco_info"/>
+
+    <TextView
+        android:id="@+id/tv_desc_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descrição"
+        android:fontFamily="@font/kozuka_bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@id/tv_endereco_info"
+        app:layout_constraintTop_toBottomOf="@id/endereco_moradia_info" />
+
+    <TextView
+        android:id="@+id/desc_moradia_info"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="3dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/kozuka_regular"
+        android:background="@drawable/tv_border_black"
+        app:layout_constraintStart_toStartOf="@id/endereco_moradia_info"
+        app:layout_constraintEnd_toEndOf="@id/endereco_moradia_info"
+        app:layout_constraintTop_toBottomOf="@id/tv_desc_info"/>
+
+    <TextView
+        android:id="@+id/tv_valor_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Valor Total"
+        android:fontFamily="@font/kozuka_bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@id/tv_desc_info"
+        app:layout_constraintTop_toBottomOf="@id/desc_moradia_info"/>
+
+    <TextView
+        android:id="@+id/valor_moradia_info"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="3dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/tv_valor_info"
+        app:layout_constraintTop_toBottomOf="@id/tv_valor_info"
+        app:layout_constraintEnd_toEndOf="@id/desc_moradia_info"
+        android:background="@drawable/tv_border_black"/>
+
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconSize="30dp">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

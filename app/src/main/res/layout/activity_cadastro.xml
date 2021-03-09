@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".cadastrologin.CadastroActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.5"
+        android:background="@drawable/bg_foto_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/usuario_cadastro"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="40dp"
+        android:paddingLeft="15dp"
+        android:alpha="0.9"
+        android:ems="10"
+        android:background="@drawable/rounded_et"
+        android:hint="usuário"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:drawableStart="@drawable/icon_perfil_resize"
+        android:drawablePadding="10dp"/>
+
+    <EditText
+        android:id="@+id/email_cadastro"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:alpha="0.9"
+        android:background="@drawable/rounded_et"
+        android:drawableStart="@drawable/icon_email_resize"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/usuario_cadastro"
+        app:layout_constraintStart_toStartOf="@+id/usuario_cadastro"
+        app:layout_constraintTop_toBottomOf="@+id/usuario_cadastro" />
+
+    <EditText
+        android:id="@+id/senha_cadastro"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_et"
+        android:paddingLeft="15dp"
+        android:alpha="0.9"
+        android:ems="10"
+        android:hint="senha"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/email_cadastro"
+        app:layout_constraintStart_toStartOf="@+id/email_cadastro"
+        app:layout_constraintTop_toBottomOf="@+id/email_cadastro"
+        android:drawableStart="@drawable/icon_senha_resize"
+        android:drawablePadding="10dp"/>
+
+    <Button
+        android:id="@+id/cadastrar_cadastro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:alpha="0.7"
+        android:background="@drawable/rounded_et_black"
+        android:fontFamily="@font/kozuka_bold"
+        android:text="Cadastrar"
+        android:textColor="@color/white"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="@+id/senha_cadastro"
+        app:layout_constraintStart_toStartOf="@+id/senha_cadastro"
+        app:layout_constraintTop_toBottomOf="@id/senha_cadastro"/>
+
+    <TextView
+        android:id="@+id/voltar_login_cadastro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/kozuka_bold"
+        android:text="Voltar para login"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/cadastrar_cadastro"
+        app:layout_constraintStart_toStartOf="@+id/cadastrar_cadastro"
+        app:layout_constraintTop_toBottomOf="@+id/cadastrar_cadastro" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
