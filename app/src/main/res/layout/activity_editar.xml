@@ -21,25 +21,131 @@
         app:itemIconSize="30dp">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_moradias"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <TextView
         android:id="@+id/nome_usuario_editar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/kozuka_bold"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Nome do Usuário" />
+
+    <TextView
+        android:id="@+id/tv_alterar_nome_editar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Alterar nome de usuário"
+        android:fontFamily="@font/kozuka_bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/nome_usuario_alterar_editar"
+        app:layout_constraintTop_toBottomOf="@id/nome_usuario_editar"/>
+    <EditText
+        android:id="@+id/nome_usuario_alterar_editar"
+        android:layout_marginTop="5dp"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/tv_border_black"
+        android:drawableEnd="@drawable/icon_edit_black_resize"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_alterar_nome_editar" />
+
+    <TextView
+        android:id="@+id/tv_alterar_contato_editar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alterar contato"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/kozuka_bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/alterar_contato_editar"
+        app:layout_constraintTop_toBottomOf="@id/nome_usuario_alterar_editar"/>
+
+    <EditText
+        android:id="@+id/alterar_contato_editar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/tv_border_black"
+        android:drawableEnd="@drawable/icon_edit_black_resize"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/nome_usuario_alterar_editar"
+        app:layout_constraintStart_toStartOf="@+id/nome_usuario_alterar_editar"
+        app:layout_constraintTop_toBottomOf="@id/tv_alterar_contato_editar" />
+
+    <Button
+        android:id="@+id/btn_salvar_alteracoes_editar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:alpha="0.8"
+        android:background="@drawable/rounded_et_black"
+        android:text="Salvar alterações"
+        android:textColor="@color/white"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="@+id/alterar_contato_editar"
+        app:layout_constraintStart_toStartOf="@+id/alterar_contato_editar"
+        app:layout_constraintTop_toBottomOf="@+id/alterar_contato_editar" />
+
+    <TextView
+        android:id="@+id/nome_moradia_editar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/kozuka_bold"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler_moradias"
-        tools:text="Nome do Usuário" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_salvar_alteracoes_editar"
+        tools:text="Nome da República" />
+
+    <Button
+        android:id="@+id/alterar_informacoes_editar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="18dp"
+        android:text="Alterar informações"
+        android:background="@drawable/rounded_et_black"
+        app:backgroundTint="@null"
+        android:alpha="0.8"
+        app:layout_constraintEnd_toEndOf="@+id/btn_salvar_alteracoes_editar"
+        app:layout_constraintStart_toStartOf="@+id/btn_salvar_alteracoes_editar"
+        app:layout_constraintTop_toBottomOf="@+id/nome_moradia_editar" />
+
+    <Button
+        android:id="@+id/apagar_republica_editar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:text="Apagar República"
+        android:background="@drawable/rounded_et_black"
+        app:backgroundTint="@null"
+        android:alpha="0.8"
+        app:layout_constraintEnd_toEndOf="@+id/btn_salvar_alteracoes_editar"
+        app:layout_constraintStart_toStartOf="@+id/btn_salvar_alteracoes_editar"
+        app:layout_constraintTop_toBottomOf="@+id/alterar_informacoes_editar" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_procurando_editar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Procurando moradores"
+        android:fontFamily="@font/kozuka_bold"
+        app:layout_constraintEnd_toEndOf="@+id/apagar_republica_editar"
+        app:layout_constraintStart_toStartOf="@+id/apagar_republica_editar"
+        app:layout_constraintTop_toBottomOf="@+id/apagar_republica_editar" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

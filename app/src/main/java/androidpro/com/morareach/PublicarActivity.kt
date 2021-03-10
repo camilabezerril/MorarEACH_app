@@ -6,12 +6,15 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidpro.com.morareach.models.Moradia
+import androidpro.com.morareach.models.Usuario
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_editar.*
 import kotlinx.android.synthetic.main.activity_mapa.*
 import kotlinx.android.synthetic.main.activity_mapa.bottom_nav_view
 import kotlinx.android.synthetic.main.activity_publicar.*
@@ -24,6 +27,8 @@ class PublicarActivity : AppCompatActivity() {
         supportActionBar?.title="Publicar República"
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         bottom_nav_view.itemIconTintList = null
+
+        checarPossuiRepublica()
 
         botao_publicar.setOnClickListener {
             criarMoradia()
@@ -51,6 +56,25 @@ class PublicarActivity : AppCompatActivity() {
         }
     }
 
+    private fun checarPossuiRepublica(){
+        val uid = FirebaseAuth.getInstance().uid
+        val ref = FirebaseDatabase.getInstance().getReference("/usuarios/$uid")
+
+        ref.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val usuarioAtual = snapshot.getValue(Usuario::class.java)
+
+                if(usuarioAtual?.moradiaKey != null) {
+                    Toast.makeText(this@PublicarActivity, "Usuário já possui república!", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
     private fun criarMoradia(){
         val nomeMoradia = nome_moradia_publicar.text.toString()
         val endereco = endereco_moradia_publicar.text.toString()
@@ -66,11 +90,15 @@ class PublicarActivity : AppCompatActivity() {
 
         val ref = FirebaseDatabase.getInstance().getReference("/moradias/$tipo")
         val key = ref.push().key
+        val uid = FirebaseAuth.getInstance().uid
 
-        val novaMoradia = Moradia(key!!, nomeMoradia, pref.toString(), endereco, valor, desc)
+        val novaMoradia = Moradia(key!!, nomeMoradia, pref.toString(), endereco, valor, desc, uid!!)
         ref.child(key).setValue(novaMoradia)
                 .addOnSuccessListener {
                     finish()
                 }
+
+        val refUser = FirebaseDatabase.getInstance().getReference("/usuarios/$uid/moradiaKey")
+        refUser.setValue(key)
     }
 }

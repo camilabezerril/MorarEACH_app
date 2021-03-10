@@ -7,16 +7,63 @@
     tools:context=".InfoMoradiaActivity">
 
     <TextView
+        android:id="@+id/preferencia_moradia_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Preferência"
+        android:textColor="@color/black"
+        android:fontFamily="@font/kozuka_bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="32dp" />
+
+    <LinearLayout
+        android:id="@+id/preflayout_moradia_info"
+        android:layout_marginTop="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/preferencia_moradia_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_woman"
+            android:layout_marginTop="5dp"
+            android:layout_width="70dp"
+            android:layout_height="65dp"
+            android:src="@drawable/icon_woman"
+            android:layout_marginLeft="70dp"/>
+
+        <ImageView
+            android:id="@+id/iv_man"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/icon_man"
+            android:layout_marginLeft="30dp"/>
+
+        <ImageView
+            android:id="@+id/iv_tanto_faz"
+            android:layout_marginTop="7dp"
+            android:layout_width="70dp"
+            android:layout_height="62dp"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/icon_interrocacao" />
+
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/tv_endereco_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/kozuka_bold"
         android:text="Endereço"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/preflayout_moradia_info" />
 
     <TextView
         android:id="@+id/endereco_moradia_info"
@@ -25,7 +72,6 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/tv_border_black"
         android:fontFamily="@font/kozuka_regular"
         android:textSize="16sp"
         android:textColor="@color/black"
@@ -57,7 +103,6 @@
         android:textSize="16sp"
         android:textColor="@color/black"
         android:fontFamily="@font/kozuka_regular"
-        android:background="@drawable/tv_border_black"
         app:layout_constraintStart_toStartOf="@id/endereco_moradia_info"
         app:layout_constraintEnd_toEndOf="@id/endereco_moradia_info"
         app:layout_constraintTop_toBottomOf="@id/tv_desc_info"/>
@@ -84,11 +129,21 @@
         android:paddingTop="10dp"
         app:layout_constraintStart_toStartOf="@id/tv_valor_info"
         app:layout_constraintTop_toBottomOf="@id/tv_valor_info"
-        app:layout_constraintEnd_toEndOf="@id/desc_moradia_info"
-        android:background="@drawable/tv_border_black"/>
+        app:layout_constraintEnd_toEndOf="@id/desc_moradia_info" />
 
-
-
+    <TextView
+        android:id="@+id/tipo_moradia_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/valor_moradia_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Apartamento"
+        android:fontFamily="@font/kozuka_bold"
+        android:textColor="@color/black"
+        android:textAlignment="center"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"

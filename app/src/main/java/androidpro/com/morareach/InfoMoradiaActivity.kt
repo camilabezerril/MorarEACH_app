@@ -40,8 +40,10 @@ class InfoMoradiaActivity : AppCompatActivity() {
                     for (moradia in tipo_moradia) {
                         val rep = moradia.getValue(Moradia::class.java)
 
-                        if (rep?.key == moradiaKey)
+                        if (rep?.key == moradiaKey) {
+                            tipo_moradia_info.text = it
                             setViewInfo(rep)
+                        }
                     }
                 }
             }
@@ -55,6 +57,12 @@ class InfoMoradiaActivity : AppCompatActivity() {
         endereco_moradia_info.text = rep.endereco
         desc_moradia_info.text = rep.desc
         valor_moradia_info.text = rep.valor
+
+        when (rep.preferencia) {
+            "Mulheres" -> iv_woman.setBackgroundResource(R.drawable.tv_border_black)
+            "Homens" -> iv_man.setBackgroundResource(R.drawable.tv_border_black)
+            "Tanto faz" -> iv_tanto_faz.setBackgroundResource(R.drawable.tv_border_black)
+        }
     }
 
     private fun configureMenu(): BottomNavigationView.OnNavigationItemSelectedListener {

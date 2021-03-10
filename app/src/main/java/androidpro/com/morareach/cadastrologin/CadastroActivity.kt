@@ -46,7 +46,7 @@ class CadastroActivity : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/usuarios/$uid")
 
-        val usuario = Usuario(uid, usuario_cadastro.text.toString(), null)
+        val usuario = Usuario(uid, usuario_cadastro.text.toString(), null, null)
 
         ref.setValue(usuario)
             .addOnSuccessListener {
