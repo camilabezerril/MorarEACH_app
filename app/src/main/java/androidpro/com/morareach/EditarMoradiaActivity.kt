@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RadioButton
+import android.widget.Toast
 import androidpro.com.morareach.utils.UpdatedInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.FirebaseDatabase
@@ -41,17 +42,7 @@ class EditarMoradiaActivity : AppCompatActivity() {
         }
 
         botao_salvar_editar_moradia.setOnClickListener {
-            moradia?.nomeMoradia = nome_moradia_editar_moradia.text.toString()
-            moradia?.desc = desc_moradia_editar_moradia.text.toString()
-            moradia?.valor = valor_moradia_editar_moradia.text.toString()
-
-            val pref_id: RadioButton = findViewById(radio_preferencia_publicar.checkedRadioButtonId)
-            val pref = pref_id.text
-
-            moradia?.preferencia = pref.toString()
-
-            val ref = FirebaseDatabase.getInstance().getReference("/moradias/")
-            ref.child(moradia!!.key).setValue(moradia)
+            salvarAlteracoes()
         }
     }
 
@@ -73,5 +64,29 @@ class EditarMoradiaActivity : AppCompatActivity() {
             }
             false
         }
+    }
+
+    private fun salvarAlteracoes(){
+        val novoNomeMoradia = nome_moradia_editar_moradia.text.toString()
+        val novaDescMoradia = desc_moradia_editar_moradia.text.toString()
+        val novoValorMoradia = valor_moradia_editar_moradia.text.toString()
+
+
+        if (novoNomeMoradia.isEmpty() || novaDescMoradia.isEmpty() || novoValorMoradia.isEmpty()) {
+            Toast.makeText(this, "Há campos vazios!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        moradia?.nomeMoradia = novoNomeMoradia
+        moradia?.desc = novaDescMoradia
+        moradia?.valor = novoValorMoradia
+
+        val pref_id: RadioButton = findViewById(radio_preferencia_publicar.checkedRadioButtonId)
+        val pref = pref_id.text
+
+        moradia?.preferencia = pref.toString()
+
+        val ref = FirebaseDatabase.getInstance().getReference("/moradias/")
+        ref.child(moradia!!.key).setValue(moradia)
     }
 }

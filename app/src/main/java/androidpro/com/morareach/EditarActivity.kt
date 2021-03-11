@@ -91,8 +91,16 @@ class EditarActivity : AppCompatActivity() {
     }
 
     private fun salvarAlteracoesUsuario(){
-        UpdatedInfo.usuarioAtual?.nome = nome_usuario_alterar_editar.text.toString()
-        UpdatedInfo.usuarioAtual?.contato = alterar_contato_editar.text.toString()
+        val novoNomeUsuario = nome_usuario_alterar_editar.text.toString()
+        val novoContatoUsuario = alterar_contato_editar.text.toString()
+
+        if (novoNomeUsuario.isEmpty() || novoContatoUsuario.isEmpty()) {
+            Toast.makeText(this, "Há campos vazios!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        UpdatedInfo.usuarioAtual?.nome = novoNomeUsuario
+        UpdatedInfo.usuarioAtual?.contato = novoContatoUsuario
 
         val ref = FirebaseDatabase.getInstance().getReference("/usuarios/")
         ref.child(UpdatedInfo.usuarioAtual!!.uid).setValue(UpdatedInfo.usuarioAtual)

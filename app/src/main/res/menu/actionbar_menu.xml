@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menu_mapa"
+    <item android:id="@+id/menu_filtrar"
         android:icon="@drawable/icon_filter"
+        app:showAsAction="ifRoom">
+    </item>
+
+    <item android:id="@+id/menu_sair"
+        android:icon="@drawable/icon_logout"
         app:showAsAction="ifRoom">
     </item>
 </menu>

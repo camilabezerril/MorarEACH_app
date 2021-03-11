@@ -7,8 +7,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidpro.com.morareach.apicalls.*
+import androidpro.com.morareach.cadastrologin.LoginActivity
 import androidpro.com.morareach.models.Moradia
 import androidpro.com.morareach.utils.*
 import androidx.appcompat.app.AppCompatActivity
@@ -88,6 +90,23 @@ class MapaActivity : AppCompatActivity (), OnMapReadyCallback{
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.actionbar_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_filtrar -> {
+                return false
+            }
+            R.id.menu_sair -> {
+                FirebaseAuth.getInstance().signOut()
+
+                val intent = Intent(this, LoginActivity:: class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onMapReady(p0: GoogleMap?) {

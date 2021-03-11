@@ -74,6 +74,11 @@ class PublicarActivity : AppCompatActivity() {
         val pref = pref_id.text
         val tipo = tipo_id.text
 
+        if (nomeMoradia.isEmpty() || endereco.isEmpty() || valor.isEmpty() || desc.isEmpty()) {
+            Toast.makeText(this, "Há campos vazios!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         Log.d("PublicarActivity", "O checked radio é: $pref")
 
         val ref = FirebaseDatabase.getInstance().getReference("/moradias/")

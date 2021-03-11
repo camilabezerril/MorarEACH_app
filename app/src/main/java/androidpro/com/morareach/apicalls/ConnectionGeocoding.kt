@@ -1,6 +1,5 @@
 package androidpro.com.morareach.apicalls
 
-import android.R.attr.apiKey
 import android.util.Log
 import org.json.JSONObject
 import java.io.BufferedReader

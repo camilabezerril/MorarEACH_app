@@ -8,11 +8,8 @@ import android.os.Bundle
 import androidpro.com.morareach.models.Moradia
 import androidpro.com.morareach.utils.UpdatedInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_info_moradia.*
-import kotlinx.android.synthetic.main.activity_mapa.*
 import kotlinx.android.synthetic.main.activity_mapa.bottom_nav_view
-import kotlinx.android.synthetic.main.activity_publicar.*
 
 class InfoMoradiaActivity : AppCompatActivity() {
     lateinit var moradia: Moradia
