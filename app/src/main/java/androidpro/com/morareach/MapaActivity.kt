@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidpro.com.morareach.apicalls.*
 import androidpro.com.morareach.cadastrologin.LoginActivity
+import androidpro.com.morareach.models.MarkerMap
 import androidpro.com.morareach.models.Moradia
 import androidpro.com.morareach.utils.*
 import androidx.appcompat.app.AppCompatActivity
@@ -120,6 +121,7 @@ class MapaActivity : AppCompatActivity (), OnMapReadyCallback{
         }
 
         val ref = FirebaseDatabase.getInstance().getReference("/moradias/")
+        val markers = ArrayList<MarkerMap?>()
 
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -132,27 +134,27 @@ class MapaActivity : AppCompatActivity (), OnMapReadyCallback{
                             "Criando marker da moradia ${moradia.nomeMoradia} do tipo ${moradia.tipoMoradia}"
                         )
 
-                        ConnectionGoogleMap.criarMarker(moradia, p0)
-
-                        p0?.setOnMarkerClickListener { marker ->
-                            if (marker.position == LatLng(moradia.lat!!, moradia.lng!!)) {
-                                Log.d("ConnectionGoogleMap", "Clicked on ${marker.title}")
-
-                                val intent =
-                                    Intent(this@MapaActivity, InfoMoradiaActivity::class.java)
-                                intent.putExtra("moradia", moradia)
-                                startActivity(intent)
-                            }
-                            true
-                        }
+                        markers.add(ConnectionGoogleMap.criarMarker(moradia, p0))
                     }
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
+        p0?.setOnMarkerClickListener { marker ->
+            for (markerMap in markers)
+                if (marker.position == markerMap?.latLng) {
+                    Log.d("MapaActivity", "Clicked on ${markerMap?.title}")
+
+                    val intent =
+                        Intent(this@MapaActivity, InfoMoradiaActivity::class.java)
+                    intent.putExtra("moradiaKey", markerMap?.moradiakey)
+                    startActivity(intent)
+                }
+                true
+        }
     }
 
     private fun trocarZoom(p0: GoogleMap?){
