@@ -9,8 +9,8 @@ import android.util.Log
 import android.view.Menu
 import android.widget.Toast
 import androidpro.com.morareach.apicalls.*
-import androidpro.com.morareach.models.MarkerMap
 import androidpro.com.morareach.models.Moradia
+import androidpro.com.morareach.utils.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -29,9 +29,13 @@ import kotlinx.android.synthetic.main.activity_mapa.bottom_nav_view
 
 class MapaActivity : AppCompatActivity (), OnMapReadyCallback{
 
+    private var verificado: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mapa)
+
+        verificado = verificarLogin()
 
         supportActionBar?.title="Morar EACH"
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
@@ -44,18 +48,24 @@ class MapaActivity : AppCompatActivity (), OnMapReadyCallback{
     }
 
     private fun verificarLogin(): Boolean {
-        val uid = FirebaseAuth.getInstance().uid ?: return false
-        return true
+        return if (FirebaseAuth.getInstance().uid == null)
+            false
+        else {
+            UpdateInfo.setUsuarioAtual()
+            UpdateInfo.setMoradiaAtual()
+            true
+        }
     }
 
     private fun configureMenu(): BottomNavigationView.OnNavigationItemSelectedListener {
         return BottomNavigationView.OnNavigationItemSelectedListener { item ->
+
             when (item.itemId) {
                 R.id.menu_mapa -> {
                     return@OnNavigationItemSelectedListener false
                 }
                 R.id.menu_publicar -> {
-                    if (verificarLogin()) {
+                    if (verificado) {
                         val intent = Intent(this, PublicarActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -63,11 +73,11 @@ class MapaActivity : AppCompatActivity (), OnMapReadyCallback{
                     }
                 }
                 R.id.menu_editar -> {
-                    if (verificarLogin()) {
+                    if (verificado) {
                         val intent = Intent(this, EditarActivity::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this, "Usuário não está logado!", Toast.LENGTH_SHORT).show()
+                     Toast.makeText(this, "Usuário não está logado!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -82,39 +92,37 @@ class MapaActivity : AppCompatActivity (), OnMapReadyCallback{
 
     override fun onMapReady(p0: GoogleMap?) {
 
-        p0?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-23.485744, -46.499057), 15f))
+        p0?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-23.485744, -46.499057), 14f))
 
         val ref = FirebaseDatabase.getInstance().getReference("/moradias/")
-        val list = listOf("Casa", "Apartamento", "Kitnet")
-        val markers = ArrayList<MarkerMap?>()
 
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                list.forEach{
-                    val tipo_moradia = snapshot.child(it).children
+                for (moradia in snapshot.children) {
+                    val moradia = moradia.getValue(Moradia::class.java) ?: return
 
-                    for (moradia in tipo_moradia) {
-                        val iconType = it
-                        val moradia = moradia.getValue(Moradia::class.java)
+                    if (moradia.procura) {
+                        Log.d(
+                            "MapaActivity",
+                            "Criando marker da moradia ${moradia.nomeMoradia} do tipo ${moradia.tipoMoradia}"
+                        )
 
-                        Log.d("MapaActivity", "Criando marker da moradia ${moradia?.nomeMoradia} do tipo $iconType")
+                        ConnectionGoogleMap.criarMarker(moradia, p0)
 
-                        markers.add(criarMarker(moradia, p0, iconType))
+                        p0?.setOnMarkerClickListener { marker ->
+                            if (marker.position == LatLng(moradia.lat!!, moradia.lng!!)) {
+                                Log.d("ConnectionGoogleMap", "Clicked on ${marker.title}")
+
+                                val intent =
+                                    Intent(this@MapaActivity, InfoMoradiaActivity::class.java)
+                                intent.putExtra("moradia", moradia)
+                                startActivity(intent)
+                            }
+                            true
+                        }
                     }
                 }
 
-                p0?.setOnMarkerClickListener { marker ->
-                    for (markerMap in markers)
-                        if (marker.position == LatLng(markerMap!!.lat, markerMap.lng)) {
-                            Log.d("ConnectionGoogleMap", "Clicked on ${markerMap.title}")
-
-                            val intent = Intent(this@MapaActivity, InfoMoradiaActivity::class.java)
-                            intent.putExtra("moradiaNome", markerMap.title)
-                            intent.putExtra("moradiaKey", markerMap.moradiaKey)
-                            startActivity(intent)
-                        }
-                    true
-                }
             }
 
             override fun onCancelled(error: DatabaseError) {

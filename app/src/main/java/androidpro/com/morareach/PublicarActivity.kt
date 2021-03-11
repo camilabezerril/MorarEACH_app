@@ -6,11 +6,11 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
+import androidpro.com.morareach.apicalls.ConnectionGeocoding
 import androidpro.com.morareach.models.Moradia
-import androidpro.com.morareach.models.Usuario
+import androidpro.com.morareach.utils.UpdatedInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -28,7 +28,7 @@ class PublicarActivity : AppCompatActivity() {
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         bottom_nav_view.itemIconTintList = null
 
-        checarPossuiRepublica()
+        checarPossuiMoradia()
 
         botao_publicar.setOnClickListener {
             criarMoradia()
@@ -56,23 +56,11 @@ class PublicarActivity : AppCompatActivity() {
         }
     }
 
-    private fun checarPossuiRepublica(){
-        val uid = FirebaseAuth.getInstance().uid
-        val ref = FirebaseDatabase.getInstance().getReference("/usuarios/$uid")
-
-        ref.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val usuarioAtual = snapshot.getValue(Usuario::class.java)
-
-                if(usuarioAtual?.moradiaKey != null) {
-                    Toast.makeText(this@PublicarActivity, "Usuário já possui república!", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
+    private fun checarPossuiMoradia(){
+        if (UpdatedInfo.moradiaAtual != null) {
+            Toast.makeText(this, "Usuário já possui república!", Toast.LENGTH_SHORT).show()
+            finish()
+        }
     }
 
     private fun criarMoradia(){
@@ -88,14 +76,17 @@ class PublicarActivity : AppCompatActivity() {
 
         Log.d("PublicarActivity", "O checked radio é: $pref")
 
-        val ref = FirebaseDatabase.getInstance().getReference("/moradias/$tipo")
+        val ref = FirebaseDatabase.getInstance().getReference("/moradias/")
         val key = ref.push().key
         val uid = FirebaseAuth.getInstance().uid
 
-        val novaMoradia = Moradia(key!!, nomeMoradia, pref.toString(), endereco, valor, desc, uid!!)
+        val coord = ConnectionGeocoding.getCoordenadas(endereco) ?: return
+
+        val novaMoradia = Moradia(key!!, nomeMoradia, tipo.toString(), pref.toString(), endereco, valor, desc, uid!!, coord[0], coord[1], true)
         ref.child(key).setValue(novaMoradia)
                 .addOnSuccessListener {
-                    finish()
+                    val intent = Intent(this, MapaActivity::class.java)
+                    startActivity(intent)
                 }
 
         val refUser = FirebaseDatabase.getInstance().getReference("/usuarios/$uid/moradiaKey")

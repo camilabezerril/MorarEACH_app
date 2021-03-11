@@ -14,46 +14,25 @@ import kotlinx.android.synthetic.main.activity_mapa.bottom_nav_view
 import kotlinx.android.synthetic.main.activity_publicar.*
 
 class InfoMoradiaActivity : AppCompatActivity() {
+    lateinit var moradia: Moradia
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_moradia)
 
-        supportActionBar?.title=intent.getStringExtra("moradiaNome")
+        moradia = intent.getParcelableExtra("moradia")
+
+        supportActionBar?.title= moradia.nomeMoradia
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         bottom_nav_view.itemIconTintList = null
 
         bottom_nav_view.setOnNavigationItemSelectedListener(configureMenu())
 
-        val moradiaKey = intent.getStringExtra("moradiaKey")
-        getMoradiaFromDatabase(moradiaKey)
-    }
-
-    private fun getMoradiaFromDatabase(moradiaKey: String){
-        val ref = FirebaseDatabase.getInstance().getReference("/moradias/")
-        val list = listOf("Casa", "Apartamento", "Kitnet")
-
-        ref.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                list.forEach {
-                    val tipo_moradia = snapshot.child(it).children
-
-                    for (moradia in tipo_moradia) {
-                        val rep = moradia.getValue(Moradia::class.java)
-
-                        if (rep?.key == moradiaKey) {
-                            tipo_moradia_info.text = it
-                            setViewInfo(rep)
-                        }
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
+        setViewInfo(moradia)
     }
 
     private fun setViewInfo(rep: Moradia){
+        tipo_moradia_info.text = rep.tipoMoradia
         endereco_moradia_info.text = rep.endereco
         desc_moradia_info.text = rep.desc
         valor_moradia_info.text = rep.valor

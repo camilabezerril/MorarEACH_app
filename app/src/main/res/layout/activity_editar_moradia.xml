@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditarMoradiaActivity">
+
+    <EditText
+        android:id="@+id/nome_moradia_publicar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/tv_border_black"
+        android:ems="10"
+        android:hint="Nome"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/desc_moradia_publicar"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/tv_border_black"
+        android:ems="10"
+        android:gravity="top|start"
+        android:hint="Descrição"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/endereco_moradia_publicar"
+        app:layout_constraintStart_toStartOf="@+id/endereco_moradia_publicar"
+        app:layout_constraintTop_toBottomOf="@+id/endereco_moradia_publicar" />
+
+    <EditText
+        android:id="@+id/endereco_moradia_publicar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/tv_border_black"
+        android:ems="10"
+        android:hint='Endereço (\"rua, número\")'
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/nome_moradia_publicar"
+        app:layout_constraintStart_toStartOf="@+id/nome_moradia_publicar"
+        app:layout_constraintTop_toBottomOf="@+id/nome_moradia_publicar" />
+
+    <EditText
+        android:id="@+id/valor_moradia_publicar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/tv_border_black"
+        android:ems="10"
+        android:hint="Valor Total"
+        android:inputType="numberDecimal"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/desc_moradia_publicar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/desc_moradia_publicar"
+        app:layout_constraintTop_toBottomOf="@+id/desc_moradia_publicar" />
+
+    <RadioGroup
+        android:id="@+id/radio_preferencia_publicar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toStartOf="@id/valor_moradia_publicar"
+        app:layout_constraintTop_toBottomOf="@id/valor_moradia_publicar">
+
+        <RadioButton
+            android:id="@+id/mulheres_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kozuka_bold"
+            android:paddingLeft="5dp"
+            android:text="Mulheres"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/homens_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kozuka_bold"
+            android:paddingLeft="5dp"
+            android:text="Homens"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/tanto_faz_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kozuka_bold"
+            android:paddingLeft="5dp"
+            android:text="Tanto faz"
+            android:textSize="18sp"
+            android:checked="true"/>
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radio_tipo_moradia_publicar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintEnd_toEndOf="@id/valor_moradia_publicar"
+        app:layout_constraintTop_toBottomOf="@id/valor_moradia_publicar">
+
+        <RadioButton
+            android:id="@+id/apartamento_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kozuka_bold"
+            android:paddingLeft="5dp"
+            android:text="Apartamento"
+            android:textSize="18sp"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/casa_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kozuka_bold"
+            android:paddingLeft="5dp"
+            android:text="Casa"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/kitnet_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kozuka_bold"
+            android:paddingLeft="5dp"
+            android:text="Kitnet"
+            android:textSize="18sp" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/botao_publicar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="40dp"
+        android:alpha="0.8"
+        android:background="@drawable/rounded_et_black"
+        android:fontFamily="@font/kozuka_bold"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="Salvar alterações"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav_view"
+        app:layout_constraintEnd_toEndOf="@+id/radio_tipo_moradia_publicar"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="@+id/radio_preferencia_publicar"
+        app:layout_constraintTop_toBottomOf="@+id/radio_preferencia_publicar"
+        app:layout_constraintVertical_bias="0.141">
+    </Button>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconSize="30dp">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

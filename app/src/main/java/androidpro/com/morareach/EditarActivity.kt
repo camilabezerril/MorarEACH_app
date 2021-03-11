@@ -5,12 +5,10 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidpro.com.morareach.models.Moradia
-import androidpro.com.morareach.models.Usuario
+import android.widget.Toast
+import androidpro.com.morareach.utils.UpdatedInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_editar.*
 import kotlinx.android.synthetic.main.activity_mapa.*
@@ -25,9 +23,20 @@ class EditarActivity : AppCompatActivity() {
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         bottom_nav_view.itemIconTintList = null
 
-        usuarioAtual()
-        moradiaAtual()
+        setUserViewInfo()
+        setMoradiaViewInfo()
         bottom_nav_view.setOnNavigationItemSelectedListener(configureMenu())
+
+        apagar_republica_editar.setOnClickListener {
+            apagarRepublica()
+        }
+
+        switch_procurando_editar.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked)
+                setMoradiaProcuraTrue()
+            else
+                setMoradiaProcuraFalse()
+        }
     }
 
     private fun configureMenu(): BottomNavigationView.OnNavigationItemSelectedListener {
@@ -49,55 +58,54 @@ class EditarActivity : AppCompatActivity() {
         }
     }
 
-    private fun usuarioAtual(){
-        val uid = FirebaseAuth.getInstance().uid
-        val ref = FirebaseDatabase.getInstance().getReference("/usuarios/$uid")
+    private fun setUserViewInfo(){
+        val usuario = UpdatedInfo.usuarioAtual
 
-        ref.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val usuarioAtual = snapshot.getValue(Usuario::class.java)
-                nome_usuario_editar.text = usuarioAtual?.nome
-                nome_usuario_alterar_editar.setText(usuarioAtual?.nome)
-                alterar_contato_editar.setText(usuarioAtual?.contato)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
+        nome_usuario_editar.text = usuario?.nome
+        nome_usuario_alterar_editar.setText(usuario?.nome)
+        alterar_contato_editar.setText(usuario?.contato)
     }
 
-    private fun moradiaAtual(){
-        val uid = FirebaseAuth.getInstance().uid
-        val ref = FirebaseDatabase.getInstance().getReference("/moradias/")
-        val list = listOf("Casa", "Apartamento", "Kitnet")
+    private fun setMoradiaViewInfo(){
+        val moradia = UpdatedInfo.moradiaAtual
 
-        ref.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var found = false
+        if(moradia != null) {
+            nome_moradia_editar.text = moradia.nomeMoradia
+            switch_procurando_editar.isChecked = moradia.procura
+        } else {
+            nome_moradia_editar.text = "Crie uma república!"
+            alterar_informacoes_editar.visibility = View.INVISIBLE
+            apagar_republica_editar.visibility = View.INVISIBLE
+            switch_procurando_editar.visibility = View.INVISIBLE
+        }
+    }
 
-                list.forEach {
-                    val tipo_moradia = snapshot.child(it).children
+    private fun apagarRepublica(){
+        val moradia = UpdatedInfo.moradiaAtual
+        val ref = FirebaseDatabase.getInstance().getReference("/moradias/${moradia?.key}")
+        ref.removeValue().addOnSuccessListener {
+            UpdatedInfo.moradiaAtual = null
 
-                    for (moradia in tipo_moradia) {
-                        val rep = moradia.getValue(Moradia::class.java)
+            Toast.makeText(this, "República apagada!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, EditarActivity::class.java)
+            overridePendingTransition(0, 0)
+            startActivity(intent)
+        }
+    }
 
-                        if (rep?.usuario == uid) {
-                            nome_moradia_editar.text = rep?.nomeMoradia
-                            found = true
-                        }
-                    }
-                }
+    private fun setMoradiaProcuraFalse(){
+        val moradia = UpdatedInfo.moradiaAtual
+        val ref = FirebaseDatabase.getInstance().getReference("/moradias/${moradia?.key}/procura")
+        ref.setValue(false).addOnSuccessListener {
+            Toast.makeText(this, "Procura desativada!\nA república não aparecerá mais no mapa.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-                if (!found) {
-                    nome_moradia_editar.text = "Crie uma república!"
-                    alterar_informacoes_editar.visibility = View.INVISIBLE
-                    apagar_republica_editar.visibility = View.INVISIBLE
-                    switch_procurando_editar.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
+    private fun setMoradiaProcuraTrue(){
+        val moradia = UpdatedInfo.moradiaAtual
+        val ref = FirebaseDatabase.getInstance().getReference("/moradias/${moradia?.key}/procura")
+        ref.setValue(true).addOnSuccessListener {
+            Toast.makeText(this, "Procura ativada!\nA república aparecerá no mapa.", Toast.LENGTH_SHORT).show()
+        }
     }
 }
