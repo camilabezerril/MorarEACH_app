@@ -11,6 +11,7 @@ import androidpro.com.morareach.utils.UpdatedInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_editar.*
+import kotlinx.android.synthetic.main.activity_info_moradia.*
 import kotlinx.android.synthetic.main.activity_mapa.*
 import kotlinx.android.synthetic.main.activity_mapa.bottom_nav_view
 
@@ -27,6 +28,10 @@ class EditarActivity : AppCompatActivity() {
         setMoradiaViewInfo()
         bottom_nav_view.setOnNavigationItemSelectedListener(configureMenu())
 
+        btn_salvar_alteracoes_editar.setOnClickListener {
+            salvarAlteracoesUsuario()
+        }
+
         apagar_republica_editar.setOnClickListener {
             apagarRepublica()
         }
@@ -36,6 +41,11 @@ class EditarActivity : AppCompatActivity() {
                 setMoradiaProcuraTrue()
             else
                 setMoradiaProcuraFalse()
+        }
+
+        alterar_informacoes_editar.setOnClickListener {
+            val intent = Intent(this, EditarMoradiaActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -78,6 +88,16 @@ class EditarActivity : AppCompatActivity() {
             apagar_republica_editar.visibility = View.INVISIBLE
             switch_procurando_editar.visibility = View.INVISIBLE
         }
+    }
+
+    private fun salvarAlteracoesUsuario(){
+        UpdatedInfo.usuarioAtual?.nome = nome_usuario_alterar_editar.text.toString()
+        UpdatedInfo.usuarioAtual?.contato = alterar_contato_editar.text.toString()
+
+        val ref = FirebaseDatabase.getInstance().getReference("/usuarios/")
+        ref.child(UpdatedInfo.usuarioAtual!!.uid).setValue(UpdatedInfo.usuarioAtual)
+
+        Toast.makeText(this, "Alterações salvas!", Toast.LENGTH_SHORT).show()
     }
 
     private fun apagarRepublica(){

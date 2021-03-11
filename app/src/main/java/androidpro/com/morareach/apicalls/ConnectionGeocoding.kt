@@ -52,10 +52,9 @@ object ConnectionGeocoding {
         val thread = Thread {
             try {
                 val urlConn: URLConnection
-                val bufferedReader: BufferedReader
                 val url = URL(url)
                 urlConn = url.openConnection()
-                bufferedReader = BufferedReader(InputStreamReader(urlConn.getInputStream()))
+                val bufferedReader = BufferedReader(InputStreamReader(urlConn.getInputStream()))
                 val stringBuffer = StringBuffer()
                 var line: String?
                 while (bufferedReader.readLine().also { line = it } != null) stringBuffer.append(

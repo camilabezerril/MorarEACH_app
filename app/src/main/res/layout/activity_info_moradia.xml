@@ -30,11 +30,10 @@
 
         <ImageView
             android:id="@+id/iv_woman"
-            android:layout_marginTop="5dp"
-            android:layout_width="70dp"
-            android:layout_height="65dp"
+            android:layout_width="80dp"
+            android:layout_height="72dp"
             android:src="@drawable/icon_woman"
-            android:layout_marginLeft="70dp"/>
+            android:layout_marginLeft="62dp"/>
 
         <ImageView
             android:id="@+id/iv_man"
@@ -45,10 +44,11 @@
 
         <ImageView
             android:id="@+id/iv_tanto_faz"
-            android:layout_marginTop="7dp"
-            android:layout_width="70dp"
-            android:layout_height="62dp"
-            android:layout_marginLeft="25dp"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="3dp"
+            android:alpha="0.8"
             android:src="@drawable/icon_interrocacao" />
 
     </LinearLayout>
@@ -144,6 +144,35 @@
         android:fontFamily="@font/kozuka_bold"
         android:textColor="@color/black"
         android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/contato_principal_info_moradia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        tools:text="Contato Principal"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/kozuka_regular"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/nome_principal_info_moradia" />
+
+    <TextView
+        android:id="@+id/nome_principal_info_moradia"
+        android:layout_width="0dp"
+        android:layout_marginTop="3dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        tools:text="Nome Principal"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/kozuka_regular"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/tipo_moradia_info" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"

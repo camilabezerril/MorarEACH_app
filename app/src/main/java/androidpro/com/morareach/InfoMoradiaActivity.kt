@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidpro.com.morareach.models.Moradia
+import androidpro.com.morareach.utils.UpdatedInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_info_moradia.*
@@ -42,6 +43,9 @@ class InfoMoradiaActivity : AppCompatActivity() {
             "Homens" -> iv_man.setBackgroundResource(R.drawable.tv_border_black)
             "Tanto faz" -> iv_tanto_faz.setBackgroundResource(R.drawable.tv_border_black)
         }
+
+        contato_principal_info_moradia.text = UpdatedInfo.usuarioAtual?.contato
+        nome_principal_info_moradia.text = UpdatedInfo.usuarioAtual?.nome
     }
 
     private fun configureMenu(): BottomNavigationView.OnNavigationItemSelectedListener {
