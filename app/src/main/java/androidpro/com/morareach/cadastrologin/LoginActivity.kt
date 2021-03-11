@@ -22,8 +22,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         cadastrar_cadastro.setOnClickListener {
-            val email = usuario_cadastro.text.toString()
-            val senha = senha_cadastro.text.toString()
+            val email = email_login.text.toString()
+            val senha = senha_login.text.toString()
 
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha).addOnSuccessListener {
                 val intent = Intent(this, MapaActivity::class.java)

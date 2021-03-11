@@ -20,7 +20,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
-        android:id="@+id/usuario_cadastro"
+        android:id="@+id/email_login"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="40dp"
@@ -51,12 +51,12 @@
         android:hint="email"
         android:inputType="textEmailAddress"
         android:paddingLeft="15dp"
-        app:layout_constraintEnd_toEndOf="@+id/usuario_cadastro"
-        app:layout_constraintStart_toStartOf="@+id/usuario_cadastro"
-        app:layout_constraintTop_toBottomOf="@+id/usuario_cadastro" />
+        app:layout_constraintEnd_toEndOf="@+id/email_login"
+        app:layout_constraintStart_toStartOf="@+id/email_login"
+        app:layout_constraintTop_toBottomOf="@+id/email_login" />
 
     <EditText
-        android:id="@+id/senha_cadastro"
+        android:id="@+id/senha_login"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
@@ -83,9 +83,9 @@
         android:text="Cadastrar"
         android:textColor="@color/white"
         app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="@+id/senha_cadastro"
-        app:layout_constraintStart_toStartOf="@+id/senha_cadastro"
-        app:layout_constraintTop_toBottomOf="@id/senha_cadastro"/>
+        app:layout_constraintEnd_toEndOf="@+id/senha_login"
+        app:layout_constraintStart_toStartOf="@+id/senha_login"
+        app:layout_constraintTop_toBottomOf="@id/senha_login"/>
 
     <TextView
         android:id="@+id/voltar_login_cadastro"

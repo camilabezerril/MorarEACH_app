@@ -28,7 +28,7 @@ class CadastroActivity : AppCompatActivity() {
 
     private fun cadastrarUsuario() {
         val email = email_cadastro.text.toString()
-        val senha = senha_cadastro.text.toString()
+        val senha = senha_login.text.toString()
 
         if (email.isEmpty() || senha.isEmpty()) {
             Toast.makeText(this, "Há campos vazios!", Toast.LENGTH_SHORT).show()
@@ -45,7 +45,7 @@ class CadastroActivity : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/usuarios/$uid")
 
-        val usuario = Usuario(uid, usuario_cadastro.text.toString(), null, null)
+        val usuario = Usuario(uid, email_login.text.toString(), null, null)
 
         ref.setValue(usuario)
             .addOnSuccessListener {

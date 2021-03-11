@@ -19,7 +19,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
-        android:id="@+id/usuario_cadastro"
+        android:id="@+id/email_login"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="40dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/senha_cadastro"
+        android:id="@+id/senha_login"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
@@ -48,9 +48,9 @@
         android:ems="10"
         android:hint="senha"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/usuario_cadastro"
-        app:layout_constraintStart_toStartOf="@+id/usuario_cadastro"
-        app:layout_constraintTop_toBottomOf="@+id/usuario_cadastro"
+        app:layout_constraintEnd_toEndOf="@+id/email_login"
+        app:layout_constraintStart_toStartOf="@+id/email_login"
+        app:layout_constraintTop_toBottomOf="@+id/email_login"
         android:drawableStart="@drawable/icon_senha_resize"
         android:drawablePadding="10dp"/>
 
@@ -64,9 +64,9 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/senha_cadastro"
-        app:layout_constraintStart_toStartOf="@+id/senha_cadastro"
-        app:layout_constraintTop_toBottomOf="@+id/senha_cadastro" />
+        app:layout_constraintEnd_toEndOf="@+id/senha_login"
+        app:layout_constraintStart_toStartOf="@+id/senha_login"
+        app:layout_constraintTop_toBottomOf="@+id/senha_login" />
 
     <Button
         android:id="@+id/cadastrar_cadastro"
@@ -79,8 +79,8 @@
         android:text="Entrar"
         android:fontFamily="@font/kozuka_bold"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/senha_cadastro"
-        app:layout_constraintStart_toStartOf="@+id/senha_cadastro"
+        app:layout_constraintEnd_toEndOf="@+id/senha_login"
+        app:layout_constraintStart_toStartOf="@+id/senha_login"
         app:layout_constraintTop_toBottomOf="@+id/login_anonimo" />
 
     <TextView

@@ -81,12 +81,15 @@ class EditarMoradiaActivity : AppCompatActivity() {
         moradia?.desc = novaDescMoradia
         moradia?.valor = novoValorMoradia
 
-        val pref_id: RadioButton = findViewById(radio_preferencia_publicar.checkedRadioButtonId)
+        val pref_id: RadioButton = findViewById(radio_preferencia_editar_moradia.checkedRadioButtonId)
         val pref = pref_id.text
 
         moradia?.preferencia = pref.toString()
 
-        val ref = FirebaseDatabase.getInstance().getReference("/moradias/")
-        ref.child(moradia!!.key).setValue(moradia)
+        val ref = FirebaseDatabase.getInstance().getReference("/moradias/${moradia!!.key}")
+        ref.setValue(moradia).addOnSuccessListener {
+            Toast.makeText(this,"Informações alteradas", Toast.LENGTH_SHORT).show()
+            finish()
+        }
     }
 }
