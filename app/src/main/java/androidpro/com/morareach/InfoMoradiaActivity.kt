@@ -3,10 +3,10 @@ package androidpro.com.morareach
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidpro.com.morareach.models.Moradia
 import androidpro.com.morareach.models.Usuario
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,6 +14,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_info_moradia.*
 import kotlinx.android.synthetic.main.activity_mapa.bottom_nav_view
+import java.text.NumberFormat
+import java.util.*
 
 class InfoMoradiaActivity : AppCompatActivity() {
     companion object {
@@ -27,13 +29,10 @@ class InfoMoradiaActivity : AppCompatActivity() {
         val moradiaKey = intent.getStringExtra("moradiaKey")
         searchMoradia(moradiaKey)
 
-        supportActionBar?.title= moradia?.nomeMoradia
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         bottom_nav_view.itemIconTintList = null
 
         bottom_nav_view.setOnNavigationItemSelectedListener(configureMenu())
-
-        setViewInfo()
     }
 
     private fun searchMoradia(moradiaKey: String){
@@ -41,6 +40,7 @@ class InfoMoradiaActivity : AppCompatActivity() {
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 moradia = snapshot.getValue(Moradia::class.java)
+                setViewInfo()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -49,6 +49,7 @@ class InfoMoradiaActivity : AppCompatActivity() {
     }
 
     private fun setViewInfo(){
+        supportActionBar?.title= moradia?.nomeMoradia
         tipo_moradia_info.text = moradia?.tipoMoradia
         endereco_moradia_info.text = moradia?.endereco
         desc_moradia_info.text = moradia?.desc
@@ -63,7 +64,7 @@ class InfoMoradiaActivity : AppCompatActivity() {
         val ref = FirebaseDatabase.getInstance().getReference("/usuarios/${moradia?.usuario}")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                    val usuario = snapshot.getValue(Usuario::class.java)
+                val usuario = snapshot.getValue(Usuario::class.java)
 
                 contato_principal_info_moradia.text = usuario?.contato
                 nome_principal_info_moradia.text = usuario?.nome
