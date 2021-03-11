@@ -113,6 +113,10 @@ class MapaActivity : AppCompatActivity (), OnMapReadyCallback{
 
         p0?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-23.485744, -46.499057), 14f))
 
+        trocar_zoom_mapa.setOnClickListener {
+            trocarZoom(p0)
+        }
+
         val ref = FirebaseDatabase.getInstance().getReference("/moradias/")
 
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
@@ -147,5 +151,15 @@ class MapaActivity : AppCompatActivity (), OnMapReadyCallback{
             override fun onCancelled(error: DatabaseError) {
             }
         })
+    }
+
+    private fun trocarZoom(p0: GoogleMap?){
+        if (trocar_zoom_mapa.text == "Tatuapé"){
+            trocar_zoom_mapa.text = "Campus"
+            p0?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-23.535048205065, -46.57617571598909), 14f))
+        }else {
+            trocar_zoom_mapa.text = "Tatuapé"
+            p0?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-23.485744, -46.499057), 14f))
+        }
     }
 }
