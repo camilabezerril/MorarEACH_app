@@ -2,7 +2,7 @@
 
 Em desenvolvimento.
 
-Aplicativo para estudantes da EACH-USP encontrarem moradia próximo ao campus da universidade
+Aplicativo feito em Kotlin para estudantes da EACH-USP encontrarem moradia próxima ao campus da universidade. As tecnologias utilizadas foram Google Maps API, Geocoding API e Firebase.
 
 <img src="https://github.com/camilabezerril/MorarEACH_app/blob/master/screens/LoginActivity.jpeg" height="530" width="270">
 <img src="https://github.com/camilabezerril/MorarEACH_app/blob/master/screens/CadastroActivity.jpeg" height="530" width="270">
